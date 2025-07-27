@@ -10,5 +10,4 @@ public interface IBookRepository
     Task<Book> UpdateBookAsync(Book book);
     Task<bool> DeleteBookAsync(int id);
 
-
 }

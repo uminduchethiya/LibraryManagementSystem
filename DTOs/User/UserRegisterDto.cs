@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
+using LibraryManagementSystem.Constants;
 namespace LibraryManagementSystem.DTOs.User
 {
     public class UserRegisterDto
@@ -14,5 +14,6 @@ namespace LibraryManagementSystem.DTOs.User
         [Required]
         [MinLength(8)]
         public string Password { get; set; } = string.Empty;
+        public string Role { get; set; } = UserRole.User; 
     }
 }

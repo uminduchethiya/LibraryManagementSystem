@@ -12,6 +12,7 @@ public class BookRepository : IBookRepository
     {
         _context = context;
     }
+    // Adds a new book to the database.
     public async Task<Book> CreateBookAsync(Book book)
     {
         _context.Books.Add(book);
@@ -19,16 +20,19 @@ public class BookRepository : IBookRepository
         return book;
     }
 
+    //Retrieves all non-deleted books from the database.
     public async Task<List<Book>> GetAllBooksAsync()
     {
         return await _context.Books
         .Where(b => !b.IsDeleted).ToListAsync();
     }
 
+    // Fetches a single book by its ID
     public async Task<Book?> GetBookByIdAsync(int id)
     {
         return await _context.Books.FirstOrDefaultAsync(b => b.Id == id && !b.IsDeleted);
     }
+    //  Updates an existing book in the database
     public async Task<Book> UpdateBookAsync(Book book)
     {
         _context.Books.Update(book);
@@ -36,6 +40,7 @@ public class BookRepository : IBookRepository
         return book;
     }
 
+    // deletes a book
     public async Task<bool> DeleteBookAsync(int id)
     {
         var book = await _context.Books.FirstOrDefaultAsync(b => b.Id == id && !b.IsDeleted);
@@ -49,6 +54,5 @@ public class BookRepository : IBookRepository
 
         return true;
     }
-
 
 }
