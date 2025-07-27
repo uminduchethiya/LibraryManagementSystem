@@ -14,6 +14,7 @@ public class BookService : IBookService
         _repository = repository;
     }
 
+    // create new book business logic
     public async Task<Book> CreateBookAsync(BookCreatDto dto, int userId)
     {
         var book = new Book
@@ -22,6 +23,8 @@ public class BookService : IBookService
             Title = dto.Title,
             Author = dto.Author,
             Description = dto.Description,
+            BookType = dto.BookType,
+            ISBN = dto.ISBN,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
             IsDeleted = false
@@ -29,6 +32,7 @@ public class BookService : IBookService
         return await _repository.CreateBookAsync(book);
     }
 
+    // get all book business logic
     public async Task<List<BookDto>> GetAllBooksAsync()
     {
         var books = await _repository.GetAllBooksAsync();
@@ -38,11 +42,13 @@ public class BookService : IBookService
             UserId = b.UserId,
             Title = b.Title,
             Author = b.Author,
-            Description = b.Description
+            Description = b.Description,
+            ISBN = b.ISBN,
+            BookType = b.BookType
         }).ToList();
     }
 
-
+    // update bokk business logic
     public async Task<Book?> UpdateBookAsync(int id, BookUpdateDto dto)
     {
         var existingBook = await _repository.GetBookByIdAsync(id);
@@ -50,10 +56,15 @@ public class BookService : IBookService
         existingBook.Title = dto.Title;
         existingBook.Author = dto.Author;
         existingBook.Description = dto.Description;
+        existingBook.ISBN = dto.ISBN;
+        existingBook.BookType = dto.BookType;
         existingBook.UpdatedAt = DateTime.UtcNow;
+
 
         return await _repository.UpdateBookAsync(existingBook);
     }
+
+    // delete book business logi
     public async Task<bool> DeleteBookAsync(int id)
     {
         var book = await _repository.GetBookByIdAsync(id);

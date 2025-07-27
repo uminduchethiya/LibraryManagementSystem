@@ -16,6 +16,7 @@ public class BookController : ControllerBase
     {
         _bookService = bookService;
     }
+    // create new book
     [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> CreateBook([FromBody] BookCreatDto dto)
@@ -35,6 +36,7 @@ public class BookController : ControllerBase
         }
     }
 
+    // get all book
     [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllBooks()
@@ -50,6 +52,7 @@ public class BookController : ControllerBase
         }
     }
 
+    // update bookd
     [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateBook(int id, [FromBody] BookUpdateDto dto)
@@ -63,7 +66,7 @@ public class BookController : ControllerBase
 
     }
 
-
+    // delete book
     [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBook(int id)

@@ -35,7 +35,7 @@ namespace LibraryManagementSystem.Controllers
                     Email = dto.Email,
                     FirstName = dto.FirstName,
                     LastName = dto.LastName,
-                    Role = UserRole.User,
+                    Role = dto.Role ?? UserRole.User,
                     PasswordHash = string.Empty
                 };
 
@@ -125,7 +125,7 @@ namespace LibraryManagementSystem.Controllers
                     Email = dto.Email,
                     Role = dto.Role,
                     IsActive = dto.IsActive,
-                    PasswordHash = ""  // Or handle password update separately
+                    PasswordHash = ""  
                 };
 
                 var result = await _userService.UpdateUserAsync(id, updatedUser);
