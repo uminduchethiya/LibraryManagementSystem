@@ -30,6 +30,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
+// Book
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
+
 
 // =============================
 // 4. JWT Authentication Setup with Null Check
@@ -63,6 +67,8 @@ builder.Services.AddAuthentication(options =>
 
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key)
+
+        
     };
 });
 
