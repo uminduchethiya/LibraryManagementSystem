@@ -75,9 +75,22 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key)
 
-        
+
     };
 });
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 
 // =============================
 // 5. Authorization (for Role-based access)
@@ -100,6 +113,9 @@ app.UseRouting();
 // Enable JWT Authentication & Authorization
 app.UseAuthentication();    // Must come before UseAuthorization
 app.UseAuthorization();
+
+// Use CORS
+app.UseCors("AllowFrontend");
 
 app.MapControllers();
 
